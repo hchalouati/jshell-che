@@ -19,7 +19,5 @@ public class SampleActionsExtensions {
 
     DefaultActionGroup mainMenu = (DefaultActionGroup) actionManager.getAction(GROUP_MAIN_MENU);
     mainMenu.add(sampleGroup);
-
-
   }
 }

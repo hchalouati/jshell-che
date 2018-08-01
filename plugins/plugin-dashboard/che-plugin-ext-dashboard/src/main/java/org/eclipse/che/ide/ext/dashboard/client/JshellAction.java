@@ -18,14 +18,10 @@ public class JshellAction extends BaseAction {
   private String cachedAgentUrl;
 
   @Inject
-  public JshellAction(
-
-      AppContext appContext) {
+  public JshellAction(AppContext appContext) {
 
     super("Charting", "Charting");
     this.appContext = appContext;
-
-
   }
 
   @Override
