@@ -33,7 +33,7 @@
           "machines": {
             "dev-machine": {
               "installers": [
-                "org.eclipse.che.exec", "org.eclipse.che.terminal", "org.eclipse.che.ws-agent"
+                "org.eclipse.che.exec", "org.eclipse.che.jshell", "org.eclipse.che.ws-agent"
               ],
               "servers": {
                 "tomcat8" : {
@@ -55,7 +55,7 @@
             }
           },
           "recipe": {
-            "content": "openjdk:10-jdk",
+            "content": "localhost:5000/quant-custom",
             "type": "dockerimage"
           }
         }
@@ -71,6 +71,24 @@
           "attributes": {
             "previewUrl": "",
             "goal": "Build"
+          }
+        },
+        {
+          "commandLine": "cat ${current.project.path}/hellosuanshu | jshell",
+          "name": "run hellosuanshu",
+          "type": "java",
+          "attributes": {
+            "previewUrl": "",
+            "goal": "Run"
+          }
+        },
+        {
+          "commandLine": "cat ${current.project.path}/main | jshell",
+          "name": "run main script",
+          "type": "java",
+          "attributes": {
+            "previewUrl": "",
+            "goal": "Run"
           }
         }
       ]

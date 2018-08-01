@@ -1,0 +1,42 @@
+import com.numericalmethod.suanshu.matrix.doubles.Matrix;
+import com.numericalmethod.suanshu.matrix.doubles.linearsystem.LinearSystemSolver;
+import com.numericalmethod.suanshu.matrix.doubles.linearsystem.LinearSystemSolver.Solution;
+import com.numericalmethod.suanshu.matrix.doubles.matrixtype.dense.DenseMatrix;
+import com.numericalmethod.suanshu.matrix.doubles.operation.Inverse;
+import com.numericalmethod.suanshu.matrix.doubles.operation.MatrixMeasure;
+import com.numericalmethod.suanshu.vector.doubles.Vector;
+import com.numericalmethod.suanshu.vector.doubles.dense.DenseVector;
+
+       System.out.println("Hello SuanShu");
+
+        Matrix A1 = new DenseMatrix(new double[][]{//create a matrix
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        });
+        System.out.println(A1);
+        int rank1 = MatrixMeasure.rank(A1);//compute A1's rank
+        System.out.println(rank1);//rank1 is 2 implies a deficient matrix
+        A1.set(3, 3, 10);//change A1[3, 3] to 10
+        rank1 = MatrixMeasure.rank(A1);//compute modified A1's rank
+        System.out.println(String.format("rank for the modified A1 = %d", rank1));
+        Matrix A2 = new Inverse(A1); // compute A1's inverse
+        System.out.println(A2);
+        Matrix A3 = A1.multiply(A2); // A3 = A1 %*% A2
+        
+        /*
+         * The code below shows how to solve a system of linear equations
+         *
+         * y = Ax
+         *
+         * using our LinearSystemSolver.
+         */
+        // create a vector y
+        Vector y = new DenseVector(new double[]{
+            20, 10, 4
+        });
+        double precision = 1e-14;
+        LinearSystemSolver solver = new LinearSystemSolver(precision);//set up the linear equation solver
+        Solution soln = solver.solve(A1);//get general solution for A1
+        Vector x = soln.getParticularSolution(y);//solve A1 %*% x = y
+        System.out.println(x);

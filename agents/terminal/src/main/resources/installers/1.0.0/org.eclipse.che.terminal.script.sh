@@ -215,8 +215,23 @@ fi
 
 
 if [ -f /bin/bash ]; then
-    SHELL_INTERPRETER="/bin/bash"
+    SHELL_INTERPRETER="/usr/lib/jvm/java-10-oracle/bin/jshell"
 fi
+
+#uuid=`date '+%Y_%m_%d_%H_%M'`
+#projectname="myproject$uuid"
+#mkdir /projects/$projectname
+#cp /home/user/scripts/main /projects/$projectname
+#cp /home/user/scripts/README /projects/$projectname
+#cp /home/user/scripts/hellosuanshu /projects/$projectname
+
+
+mkdir /projects/myproject
+cp /home/user/scripts/main /projects/myproject
+cp /home/user/scripts/README /projects/myproject
+cp /home/user/scripts/hellosuanshu /projects/myproject
+
+/home/user/scripts/start_charting.sh
 
 #####################################################
 ### terminal-agent run command will be added here ###

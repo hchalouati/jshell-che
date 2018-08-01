@@ -83,6 +83,7 @@ ENV MAVEN_VERSION=3.3.9 \
 ENV M2_HOME=/home/user/apache-maven-$MAVEN_VERSION
 ENV PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
 
+
 RUN mkdir /home/user/tomcat8 /home/user/apache-maven-$MAVEN_VERSION && \
     wget -qO- "http://apache.ip-connect.vn.ua/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz" | tar -zx --strip-components=1 -C /home/user/apache-maven-$MAVEN_VERSION/ && \
     wget -qO- "http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.24/bin/apache-tomcat-8.0.24.tar.gz" | tar -zx --strip-components=1 -C /home/user/tomcat8 && \
@@ -90,6 +91,32 @@ RUN mkdir /home/user/tomcat8 /home/user/apache-maven-$MAVEN_VERSION && \
     echo "export MAVEN_OPTS=\$JAVA_OPTS" >> /home/user/.bashrc && \
     sudo chgrp -R 0 ~/tomcat8 && \
     sudo chmod -R g+rwX ~/tomcat8
+
+RUN mkdir /home/user/classpath  && chmod -R 777 /home/user/classpath
+
+COPY  ["charting.jar","/home/user/classpath/charting.jar"]
+
+COPY  ["suanshu-20120606.jar","/home/user/classpath/suanshu-20120606.jar"]
+
+RUN mkdir /home/user/charting  && chmod -R 777 /home/user/charting/
+
+COPY ["app.war","/home/user/charting/app.war"]
+
+
+COPY ["start_charting.sh","/tmp/start_charting.sh"]
+
+RUN mkdir /home/user/scripts  && cp /tmp/start_charting.sh /home/user/scripts/ && chmod 777 /home/user/scripts/start_charting.sh
+
+
+
+ENV CLASSPATH=/home/user/classpath/charting.jar:/home/user/classpath/suanshu-20120606.jar
+
+
+
+COPY ["main","/home/user/scripts/main"]
+COPY ["hellosuanshu","/home/user/scripts/hellosuanshu"]
+COPY ["README","/home/user/scripts/README"]
+
 
 COPY ["entrypoint.sh","/home/user/entrypoint.sh"]
 ENTRYPOINT ["/home/user/entrypoint.sh"]

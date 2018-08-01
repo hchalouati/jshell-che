@@ -1,0 +1,10 @@
+import com.aqea.charting.*;
+ChartingAPI api = new ChartingAPI();
+api.title("Sales evolution");
+api.chartType("LineChart");
+api.legend("year", "sales");
+api.value(2016, 1);
+api.value(2017, 3);
+api.value(2018, 10)
+api.build();
+
